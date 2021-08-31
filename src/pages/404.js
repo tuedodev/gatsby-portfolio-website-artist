@@ -1,54 +1,55 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout';
+import { Container } from '@material-ui/core';
+import RedirectDialog from '../components/RedirectDialog';
 
-// styles
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
+const NotFoundPage = (props) => {
+	const pageNotFound = props.data.pageNotFound;
+	const imageDefaultUrl = props.data.img.nodes[0].defaultImage.asset.url;
+	const dialogBox = pageNotFound.dialogBox;
+	const metaData = {
+		...pageNotFound.metaData,
+		...{ publishedAt: pageNotFound.publishedAt },
+		...{ image: imageDefaultUrl },
+	};
 
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
+	return (
+		<Layout metaData={metaData} location={props.location}>
+			<Container maxWidth="lg">
+				<RedirectDialog dialogBox={dialogBox} open={true} />
+			</Container>
+		</Layout>
+	);
+};
 
-// markup
-const NotFoundPage = () => {
-  return (
-    <main style={pageStyles}>
-      <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry{" "}
-        <span role="img" aria-label="Pensive emoji">
-          😔
-        </span>{" "}
-        we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  )
-}
+export default NotFoundPage;
 
-export default NotFoundPage
+export const query = graphql`
+	query getPageNotFound {
+		pageNotFound: sanityPageNotFound {
+			publishedAt
+			metaData {
+				description
+				keywords
+				title
+			}
+			dialogBox {
+				slogan
+				notifications
+				callToAction
+				buttonText
+				to
+			}
+		}
+		img: allSanitySetting(limit: 1) {
+			nodes {
+				defaultImage {
+					asset {
+						url
+					}
+				}
+			}
+		}
+	}
+`;

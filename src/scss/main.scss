@@ -1,0 +1,64 @@
+:root {
+	--shadow: rgba(0, 0, 0, 1);
+	--bg-primary: #303030;
+	--bg-secondary: #424242;
+	--primary: white; /*old: #8fa699;*/
+	--text-primary: rgba(255, 255, 255, 0.72);
+
+	--secondary: #ffa500;
+	--main-padding: clamp(0.8rem, 2vw, 3.2rem);
+
+	/* Fixed Slider*/
+	--slide-in-duration: 500;
+	--text-animation-duration: 0.3s;
+	--picture-slider-timer: 3000;
+	--maxWidthPictureSlider: 80vw;
+	--aspectRatio: 1.5;
+	--pictureSliderFontSize: clamp(1rem, calc(0.8rem + 1vw), 2.2rem);
+
+	/* Curved Carousel */
+	--width-divider: 2.2;
+	--divider-test: clamp(0.3vw, 0, 16vw, 0.1vw);
+	--carousel-animation: 300ms;
+
+	/* Navigation*/
+	--toggle-height: 64px;
+	--toggle-width: 64px;
+	--toggle-thickness: 6px;
+	--toggle-color: white;
+	--toggle-animation-duration: 0.18s;
+	--navbar-items-animation: 0.25s;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-family: 'Quicksand', sans-serif;
+	background-color: var(--bg-primary);
+}
+body .serif {
+	font-family: 'IM Fell French Canon', serif;
+}
+main {
+	flex: 1 0 auto;
+}
+footer {
+	flex-shrink: 0;
+}
+
+#kopfgeburten {
+	background-color: var(--bg-primary);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	outline: 3px dotted gray; // for DEBUG only
+
+	&.dark-theme img {
+		filter: brightness(0.8) contrast(1.2);
+	}
+}

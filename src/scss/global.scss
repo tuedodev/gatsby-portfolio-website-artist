@@ -1,0 +1,452 @@
+.icon-button {
+	flex: 0;
+	& svg {
+		// Circle Icon
+		& circle {
+			transform: rotate(-90deg);
+			transform-origin: center;
+			stroke-dasharray: 62.83 62.83;
+			stroke-dashoffset: 62.83;
+		}
+	}
+	& svg {
+		& circle {
+			animation-name: circleAnimation2;
+			animation-duration: calc(var(--picture-slider-timer) * 1ms);
+			animation-iteration-count: 1;
+			animation-fill-mode: none;
+			animation-timing-function: linear;
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.animated {
+		& svg {
+			& circle {
+				animation-name: circleAnimation1;
+				animation-duration: calc(var(--picture-slider-timer) * 1ms);
+				animation-iteration-count: 1;
+				animation-fill-mode: none;
+				animation-timing-function: linear;
+			}
+		}
+	}
+}
+
+.logopic {
+	transition: width 0.2s ease-in-out;
+}
+// Curved Carousel
+.slides-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	//display: inline-flex;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	scrollbar-width: none;
+	transform: translateX(0);
+	will-change: transform;
+	transition: transform 0.3s ease-out;
+	cursor: grab;
+	z-index: 0;
+}
+
+.slides-wrapper {
+	position: relative;
+	display: flex; // vorher block
+	align-items: center; // neu
+	width: 100%;
+	height: 100%;
+	transform-origin: center;
+	z-index: 0;
+
+	& .arrow {
+		width: 60px;
+		height: 60px;
+		border-color: currentColor;
+		position: absolute;
+		top: 50%;
+		margin-top: -37px;
+		z-index: 1000;
+		border-bottom: var(--toggle-thickness) solid;
+		border-left: var(--toggle-thickness) solid;
+		&:hover {
+			cursor: pointer;
+		}
+
+		&.previous {
+			transform: rotate(45deg);
+			left: 2rem;
+		}
+		&.next {
+			transform: rotate(-135deg);
+			right: 2rem;
+		}
+	}
+	& .slide {
+		max-height: 100vh;
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+		padding: 1rem;
+		position: absolute;
+		transform-origin: center;
+		transition: transform 0.3s ease-in-out;
+		pointer-events: none;
+
+		& figure {
+			position: relative;
+			//z-index: initial;
+			//transition: transform 0.3s ease-in-out;
+			pointer-events: auto;
+			transform-origin: center;
+			transition: transform var(--carousel-animation) ease-in-out;
+			cursor: grab;
+			user-select: none;
+
+			& img {
+				max-width: 100%;
+				max-height: 100%;
+				box-shadow: 5px 5px 50px -1px var(--shadow);
+				border-radius: 4px;
+				//width: var(--fixed-slide-width); // ~700px fixed width? 09.07.2021
+				transition: transform var(--carousel-animation) ease-in-out,
+					box-shadow var(--carousel-animation) ease-in-out;
+				transform: scale(1);
+			}
+
+			&.grabbing {
+				cursor: grabbing;
+			}
+		}
+	}
+	& .figcaption-wrapper {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 500;
+		width: 100%;
+		& .figcaption {
+			font-size: calc(0.6rem + 2.2vw);
+			color: antiquewhite;
+			line-height: 1;
+			margin: 0;
+			padding: 0;
+			height: calc(0.6rem + 2.2vw + 4px);
+			position: relative;
+			overflow: hidden;
+			& a {
+				display: block;
+				position: absolute;
+				color: currentColor;
+				text-decoration: none;
+				top: 0;
+				right: 1rem;
+				transform: translateY(110%);
+				transition-property: none;
+			}
+
+			& a.active {
+				transition: transform var(--carousel-animation) ease-in-out;
+				transform: translateY(0);
+				/*animation-name: slideIn;
+				animation-duration: var(--carousel-animation);
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				animation-timing-function: ease-in-out;*/
+			}
+
+			& a.out {
+				transition: transform var(--carousel-animation) ease-in-out;
+				transform: translateY(-110%);
+				/*animation-name: slideOut;
+				animation-duration: var(--carousel-animation);
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+				animation-timing-function: ease-in-out;*/
+			}
+		}
+	}
+	& .slogan-wrapper {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+
+		& p {
+			font-size: clamp(1rem, calc(1rem + 1vh + 4vw), 8rem);
+			color: var(--text-primary);
+			z-index: 20;
+		}
+	}
+}
+// Menu => Navbar
+.main-navbar {
+	--duration: 0.2s;
+	--height: 10rem;
+	--height-shrinked: 5rem;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2000;
+	user-select: none;
+
+	& ul {
+		color: white;
+		background-color: rgba(0, 0, 0, 0.6);
+		background-blend-mode: multiply;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: var(--height) 0 0 0;
+		padding: 0;
+		height: calc(100% - var(--height));
+		transition: margin 0.1s ease-in, height 0.1s ease-in, visibility 0.21s linear;
+		visibility: hidden;
+		pointer-events: none;
+		& li {
+			overflow: hidden;
+			flex-basis: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: transform var(--duration) ease-in 0.15s;
+		}
+	}
+	&.shrinked {
+		& ul {
+			margin: var(--height-shrinked) 0 0 0;
+			height: calc(100% - var(--height-shrinked));
+		}
+	}
+	&.open {
+		& ul {
+			visibility: visible;
+			pointer-events: auto;
+			& li {
+				transform: translate(0, 0);
+			}
+		}
+	}
+}
+
+// Toggle Icon
+.toggle-icon {
+	position: relative;
+	transition: width var(--toggle-animation-duration) ease-in;
+	height: calc(var(--toggle-height) + var(--main-padding));
+	width: calc(var(--toggle-width) + var(--main-padding));
+
+	& input[type='checkbox'] {
+		display: none;
+	}
+}
+
+.label-class {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+	transform: translate(50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: var(--toggle-width);
+	height: var(--toggle-height);
+	transition: top var(--toggle-animation-duration) ease-in, right var(--toggle-animation-duration) ease-in,
+		transform var(--toggle-animation-duration) ease-in;
+	z-index: 1000;
+
+	& span {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		opacity: 1;
+		height: var(--toggle-thickness);
+		border-radius: calc(var(--toggle-thickness) / 2);
+		background-color: var(--toggle-color);
+		transition: width var(--toggle-animation-duration) ease-in,
+			opacity var(--toggle-animation-duration) ease-in, transform var(--toggle-animation-duration) ease-in,
+			margin var(--toggle-animation-duration) ease-in;
+
+		&:nth-child(1) {
+			margin-top: 10%;
+		}
+		&:nth-child(3) {
+			margin-bottom: 10%;
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.checked {
+		& span {
+			&:nth-child(1) {
+				width: 100%;
+				margin-top: 0;
+				transform: translateY(calc(var(--toggle-height) / 2 - 50%)) rotate(45deg);
+			}
+			&:nth-child(2) {
+				width: 0%;
+				opacity: 0;
+			}
+			&:nth-child(3) {
+				width: 100%;
+				margin-bottom: 0;
+				transform: translateY(calc(-1 * var(--toggle-height) / 2 + 50%)) rotate(-45deg);
+			}
+		}
+	}
+}
+
+// Captcha Numbers
+
+p.cpt-group {
+	$characterWidth: 32px;
+	white-space: nowrap;
+	margin: 0 0.8rem 0 0.2rem;
+	& > span {
+		background-image: url('data:image/png;base64,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');
+		display: inline-block;
+		width: $characterWidth;
+		height: 32px;
+	}
+	& > span.one {
+		background-position-x: 0;
+	}
+	& > span.two {
+		background-position-x: -$characterWidth;
+	}
+	& > span.three {
+		background-position-x: -2 * $characterWidth;
+	}
+	& > span.four {
+		background-position-x: -3 * $characterWidth;
+	}
+	& > span.five {
+		background-position-x: -4 * $characterWidth;
+	}
+	& > span.six {
+		background-position-x: -5 * $characterWidth;
+	}
+	& > span.seven {
+		background-position-x: -6 * $characterWidth;
+	}
+	& > span.eight {
+		background-position-x: -7 * $characterWidth;
+	}
+	& > span.nine {
+		background-position-x: -8 * $characterWidth;
+	}
+	& > span.plus {
+		background-position-x: -10 * $characterWidth;
+	}
+}
+
+// Helper Class no transition
+// in JS you need to trigger a reflow
+// Trigger a reflow: https://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
+
+.notransition {
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+	transition: none !important;
+}
+
+// Bug fix with vertical scroll bar
+// https://github.com/TylerBarnes/gatsby-plugin-transition-link/issues/29
+.tl-edges {
+	width: 100% !important;
+	overflow: hidden !important;
+	overflow-y: hidden !important;
+}
+
+.animation1 {
+	animation-name: wordAnimation1;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+// Keyframes
+@keyframes circleAnimation1 {
+	from {
+		stroke-dashoffset: 62.83;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes circleAnimation2 {
+	from {
+		stroke-dashoffset: 0;
+	}
+	to {
+		stroke-dashoffset: 62.83;
+	}
+}
+@keyframes slideIn {
+	from {
+		transform: translateY(110%);
+	}
+	to {
+		transform: translateY(0%);
+	}
+}
+
+@keyframes slideOut {
+	from {
+		transform: translateY(0%);
+	}
+	to {
+		transform: translateY(-110%);
+	}
+}
+@keyframes wordAnimation1 {
+	from {
+		transform: translate(40px, 0px);
+	}
+	to {
+		transform: translate(0, 0);
+	}
+}
+@keyframes wordAnimation2 {
+	from {
+		transform: translateX(-20px);
+	}
+	to {
+		transform: translateX(20px);
+	}
+}
+@keyframes wordAnimation3 {
+	from {
+		transform: translateX(0px);
+	}
+	to {
+		transform: translateX(40px);
+	}
+}
+@keyframes charAnim {
+	from {
+		transform: rotate3d(1, -0.3, 0, 90deg) translate(-5px, 20px);
+	}
+	to {
+		transform: rotate3d(0, 0, 0, 0deg) translate(0, 0);
+	}
+}

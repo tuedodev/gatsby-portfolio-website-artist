@@ -1,0 +1,110 @@
+.main-navbar {
+	--duration: 0.35s;
+	position: fixed;
+	right: 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.6);
+	background-blend-mode: multiply;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-end;
+	z-index: 9999;
+	transition: left var(--navbar-items-animation) ease-in,
+		background-color var(--navbar-items-animation) ease-in;
+
+	& ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		padding: 0 0 2rem;
+		height: calc(100% - var(--toggle-height) - 2 * var(--main-padding));
+		position: absolute;
+		top: calc(var(--toggle-height) + var(--main-padding));
+		transition: visibility var(--duration) ease-in, opacity var(--duration) ease-in;
+		width: 100%;
+
+		& li {
+			overflow: hidden;
+			flex-basis: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: transform var(--duration) ease-in calc(var(--duration) * 0.5);
+			/*& a {
+				color: currentColor;
+				font-size: 3rem;
+				text-decoration: none;
+				display: inline-block;
+				position: relative;
+				margin: 0;
+				padding: 0;
+				& > span {
+					white-space: pre;
+					& .letter {
+						display: inline-block;
+						letter-spacing: normal;
+						transition: visibility 0.7s linear, transform 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+							letter-spacing 0.35s linear, opacity 0.7s linear;
+					}
+					&.normal {
+						& .letter {
+							visibility: visible;
+							opacity: 1;
+							transform: rotate3d(1, -0.3, 0, 0deg) translateX(0);
+						}
+					}
+					&.hovered {
+						position: absolute;
+						top: 0;
+						left: 0;
+						& .letter {
+							text-transform: uppercase;
+							font-family: 'IM Fell French Canon', serif;
+							visibility: hidden;
+							opacity: 0;
+							transform: rotate3d(1, -0.3, 0, 90deg) translateX(0);
+						}
+					}
+				}
+				&:hover {
+					color: var(--secondary);
+
+					& > span {
+						&.normal {
+							& .letter {
+								visibility: hidden;
+								opacity: 0;
+								transform: rotate3d(1, -0.3, 0, 90deg) translateX(3rem);
+								letter-spacing: 10px;
+							}
+						}
+						&.hovered {
+							& .letter {
+								visibility: visible;
+								opacity: 1;
+								transform: rotate3d(1, -0.3, 0, 0deg) translateX(3rem);
+								letter-spacing: 10px;
+							}
+						}
+					}
+				}
+			}*/
+		}
+	}
+}
+.mainNavbarCollapsed {
+	composes: main-navbar;
+	left: 100%;
+	background-color: rgba(0, 0, 0, 0);
+
+	& ul {
+		visibility: hidden;
+		pointer-events: none;
+		opacity: 0;
+	}
+}
