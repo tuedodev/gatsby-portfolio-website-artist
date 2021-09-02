@@ -25,6 +25,10 @@ jobs:
         run: |
           npm ci
           npm run build
+        env:
+          GATSBY_SANITY_PROJECTID: ${{ secrets.GATSBY_SANITY_PROJECTID }}
+          GATSBY_SANITY_DATASET: ${{ secrets.GATSBY_SANITY_DATASET }}
+          GATSBY_ENV: production
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
