@@ -4,17 +4,35 @@ name: Upload Website
 on:
   push:
     branches:
-      - main
-
+      - main # might be `master` for older repos
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: jakejarvis/s3-sync-action@master
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
         with:
-          args: --acl public-read --follow-symlinks --delete --exclude '.git*/*'
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          node-version: 14.x
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Deploy
+        uses: jonelantha/gatsby-s3-action@v1
+        with:
+          dest-s3-bucket: ${{ secrets.S3_BUCKET_NAME }}
+          cloudfront-id-to-invalidate: ${{ secrets.CLOUDFRONT_ID }}
