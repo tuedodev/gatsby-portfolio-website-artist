@@ -47,14 +47,3 @@ jobs:
         with:
           dest-s3-bucket: ${{ secrets.S3_BUCKET_NAME }}
           cloudfront-id-to-invalidate: ${{ secrets.CLOUDFRONT_ID }}
-
-
-
-
-          GATSBY_SITEMETADATA_TITLE='kopfgeburten'
-GATSBY_SITEMETADATA_SUBTITLE='von Marion Piller'
-GATSBY_SITEMETADATA_DESCRIPTION='Portfolio-Website der Bad Waldseer Künstlerin Marion Piller'
-GATSBY_SITEMETADATA_AUTHOR='Marion Piller'
-GATSBY_SITEMETADATA_OWNER='Marion Piller'
-GATSBY_SITEMETADATA_SITEURL='https://www.kopfgeburten.net'
-GATSBY_SOCIAL_MEDIA_LINK_FB='https://www.facebook.com/kopfgeburten/'
