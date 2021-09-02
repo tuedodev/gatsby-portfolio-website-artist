@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
 			}),
 			'&:hover': {
 				opacity: 0.85,
-				color: theme.palette.secondary,
+				color: theme.palette.secondary.main,
 			},
 		},
 		copyright: {

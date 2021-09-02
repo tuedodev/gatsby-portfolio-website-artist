@@ -12,7 +12,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "deploy": "gatsby-plugin-s3 deploy"
   },
   "dependencies": {
     "@fontsource/im-fell-french-canon": "^4.5.0",
@@ -31,6 +32,7 @@
     "gatsby-plugin-material-ui": "^3.0.1",
     "gatsby-plugin-react-helmet": "^4.12.0",
     "gatsby-plugin-robots-txt": "^1.6.9",
+    "gatsby-plugin-s3": "^0.3.8",
     "gatsby-plugin-sass": "^4.10.0",
     "gatsby-plugin-sharp": "^3.10.2",
     "gatsby-plugin-sitemap": "^4.8.0",

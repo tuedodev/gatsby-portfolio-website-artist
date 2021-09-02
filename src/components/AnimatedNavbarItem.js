@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 				transform: 'rotate3d(1, -0.3, 0, 90deg) translateX(0)',
 			},
 			'&:hover': {
-				color: theme.palette.secondary,
+				color: theme.palette.secondary.main,
 				'& > span:nth-child(1)': {
 					'& > span': {
 						visibility: 'hidden',

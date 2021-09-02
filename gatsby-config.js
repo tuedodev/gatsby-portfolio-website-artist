@@ -14,6 +14,12 @@ module.exports = {
 		`gatsby-plugin-transition-link`,
 		`gatsby-plugin-react-helmet`,
 		{
+			resolve: `gatsby-plugin-s3`,
+			options: {
+				bucketName: 'kopfgeburten',
+			},
+		},
+		{
 			resolve: 'gatsby-plugin-robots-txt',
 			options: {
 				resolveEnv: () => process.env.GATSBY_ENV,
