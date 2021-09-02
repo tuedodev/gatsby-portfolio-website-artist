@@ -29,6 +29,13 @@ jobs:
           GATSBY_SANITY_PROJECTID: ${{ secrets.GATSBY_SANITY_PROJECTID }}
           GATSBY_SANITY_DATASET: ${{ secrets.GATSBY_SANITY_DATASET }}
           GATSBY_ENV: production
+          GATSBY_SITEMETADATA_TITLE: ${{ secrets.GATSBY_SITEMETADATA_TITLE }}
+          GATSBY_SITEMETADATA_SUBTITLE: ${{ secrets.GATSBY_SITEMETADATA_SUBTITLE }}
+          GATSBY_SITEMETADATA_DESCRIPTION: ${{ secrets.GATSBY_SITEMETADATA_DESCRIPTION }}
+          GATSBY_SITEMETADATA_AUTHOR: ${{ secrets.GATSBY_SITEMETADATA_AUTHOR }}
+          GATSBY_SITEMETADATA_OWNER: ${{ secrets.GATSBY_SITEMETADATA_OWNER }}
+          GATSBY_SITEMETADATA_SITEURL: ${{ secrets.GATSBY_SITEMETADATA_SITEURL }}
+          GATSBY_SOCIAL_MEDIA_LINK_FB: ${{ secrets.GATSBY_SOCIAL_MEDIA_LINK_FB }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -40,3 +47,14 @@ jobs:
         with:
           dest-s3-bucket: ${{ secrets.S3_BUCKET_NAME }}
           cloudfront-id-to-invalidate: ${{ secrets.CLOUDFRONT_ID }}
+
+
+
+
+          GATSBY_SITEMETADATA_TITLE='kopfgeburten'
+GATSBY_SITEMETADATA_SUBTITLE='von Marion Piller'
+GATSBY_SITEMETADATA_DESCRIPTION='Portfolio-Website der Bad Waldseer Künstlerin Marion Piller'
+GATSBY_SITEMETADATA_AUTHOR='Marion Piller'
+GATSBY_SITEMETADATA_OWNER='Marion Piller'
+GATSBY_SITEMETADATA_SITEURL='https://www.kopfgeburten.net'
+GATSBY_SOCIAL_MEDIA_LINK_FB='https://www.facebook.com/kopfgeburten/'
