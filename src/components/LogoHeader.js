@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		margin: 0,
 		padding: 0,
-		//marginRight: '-32px',
 		'& img': {
 			width: '100%',
 			height: 'auto',
