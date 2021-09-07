@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 		width: '100%',
 		height: '100%',
+		transform: 'translate(0, 0)',
 	},
 	featuredImageHeader: {
 		position: 'absolute',
