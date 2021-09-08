@@ -53,7 +53,7 @@ export default {
 			name: 'mainImage',
 			title: 'Main image',
 			description:
-				'Hinweis: Das Hauptfoto sollte eine größere Breite als Höhe einnehmen, um auf dem Picture Slider auf der Homepage besser dargestellt zu werden.',
+				'Hinweis: Das Hauptfoto sollte eine größere Breite als Höhe einnehmen, um auf dem Picture Slider auf der Homepage besser dargestellt werden zu können.',
 			type: 'figure',
 		},
 		{
