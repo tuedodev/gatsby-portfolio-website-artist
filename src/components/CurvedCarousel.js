@@ -258,7 +258,6 @@ function CurvedCarousel(props) {
 		return (movedByVar / state.slideWidth) * factor;
 	}
 
-	console.log('RENDER CURVEDCAROUSEL Parent');
 	return (
 		<div
 			className="slides-container"
