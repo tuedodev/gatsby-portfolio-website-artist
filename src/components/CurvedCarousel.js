@@ -15,7 +15,7 @@ function CurvedCarousel(props) {
 	const { height: vh, width: vw } = useWindowDimensions();
 
 	const imageArray = useRef(
-		props.pictureArray.map((img, index) => {
+		props.pictureArray.map((img) => {
 			const image = getImage(img.mainImage.image.asset.gatsbyImageData);
 			return {
 				id: img.id,
@@ -63,8 +63,6 @@ function CurvedCarousel(props) {
 				return { ...state, movedBy: 0 };
 			case 'updateMovedBy':
 				return { ...state, movedBy: action.payload.movedBy };
-			//case 'updateHoverStatus':
-			//	return { ...state, isHover: action.payload.isHoverArray };
 			case 'updateIndex':
 				let newIndex = state.currentIndex + action.payload.add;
 				newIndex = newIndex >= numberOfSlides ? 0 : newIndex;
@@ -126,7 +124,6 @@ function CurvedCarousel(props) {
 
 	useEffect(() => {
 		displaySlides();
-		//displaySlidesRef.current.call(null, currentIndex, movedBy, slideWidth);
 
 		function displaySlides() {
 			let newOrderArray =
@@ -146,16 +143,11 @@ function CurvedCarousel(props) {
 			}
 			newOrderArray.forEach((slidenumber, index) => {
 				let slide = figureRef.current[slidenumber];
-				let currentPositionOnXAxis = index - medium;
+				let currentPositionOnXAxis = index - medium + 1;
 				const { xpos, ypos, rotate } = calculateSlidePosition(
 					currentPositionOnXAxis + (state.movedBy / state.slideWidth) * 0.9
 				);
-				/*const additionalStylingObject =
-					state.isHover[slidenumber] && slideCenter === slidenumber
-						? { transformString: ' scale3d(1.06, 1.06, 1)', zIndex: index + 25 } // 50
-						: { transformString: ' scale3d(1, 1, 1)', zIndex: index + 5 };*/
 				slide.style.transform = `translate(${xpos}px, ${ypos}px) rotate(${-rotate}deg)`;
-				//slide.style.zIndex = additionalStylingObject.zIndex;
 			});
 			oldSlideCenter.current = slideCenter;
 		}
@@ -186,10 +178,8 @@ function CurvedCarousel(props) {
 		}
 
 		function calculateSlidePosition(currentPositionOnXAxis) {
-			//const { vw, vh } = getDimensions();
-			//const slideWidth = vw / divider;
 			let rotate = angle(currentPositionOnXAxis);
-			let xpos = currentPositionOnXAxis * state.slideWidth * 0.9; // (vw / 2) - slideWidth / 2???
+			let xpos = currentPositionOnXAxis * state.slideWidth * 0.9;
 			let yCurve = graph(currentPositionOnXAxis) * (vh / 1.5);
 			let ypos = -yCurve;
 			return { xpos, ypos, rotate };
@@ -254,7 +244,6 @@ function CurvedCarousel(props) {
 	};
 
 	function calculateRelativeMouseMovement(movedByVar, factor = 1) {
-		//const { slideWidth } = getDimensions();
 		return (movedByVar / state.slideWidth) * factor;
 	}
 
